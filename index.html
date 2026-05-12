@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Swipe — 臺北市政府青年局職涯資源配對平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --navy:#2F3A55;--navy-d:#1E2B42;--pr:#565449;--pr-d:#3A3830;--pr-lt:#EDE8DF;--pr-bd:#D8CFBC;
+ --ac:#565449;--ac-lt:#EDE8DF;
+ --ok:#3A5A40;--ok-lt:#DFF0E3;
+ --no:#7A2B2B;--no-lt:#F5E0E0;
+ --pu:#565449;--pu-lt:#EDE8DF;
+ --te:#565449;--te-lt:#EDE8DF;
+ --am:#6B5E3A;--am-lt:#F0E9D8;
+ --g0:#FFFBF4;--g1:#F4EFE6;--g2:#E8E2D8;--g3:#D8CFBC;--g4:#8A8577;--g5:#6E6960;--g6:#565449;--g7:#3A3830;--g8:#11120D;
+ --wh:#FFFBF4;--r8:8px;--r12:12px;--r16:16px;--r24:24px;
+ --sh:0 1px 3px rgba(17,18,13,.06);--sh-md:0 4px 16px rgba(17,18,13,.09);--sh-lg:0 12px 40px rgba(17,18,13,.12);
+}
+body{font-family:'Noto Serif TC',serif;background:var(--g0);color:var(--g8);font-size:14px;line-height:1.6;min-width:900px}
+.nav{background:#2F3A55;border-bottom:none;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(47,58,85,.18)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:'Noto Serif TC',serif;font-weight:700;font-size:18px;color:#FFFBF4;white-space:nowrap;letter-spacing:.02em}
+.nav-icon{width:38px;height:38px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.nav-tabs{display:flex;gap:2px}
+.ntab{padding:7px 14px;border-radius:var(--r8);font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:rgba(255,251,244,.65);transition:all .18s;font-family:'Noto Serif TC',serif;white-space:nowrap}
+.ntab:hover{background:rgba(255,251,244,.12);color:#FFFBF4}
+.ntab.on{background:rgba(255,251,244,.18);color:#FFFBF4;font-weight:700;border-bottom:2px solid #FFFBF4}
+.nav-r{display:flex;align-items:center;gap:8px}
+.ava{width:32px;height:32px;border-radius:50%;background:rgba(255,251,244,.22);border:1.5px solid rgba(255,251,244,.4);display:flex;align-items:center;justify-content:center;color:#FFFBF4;font-weight:700;font-size:13px;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:var(--r8);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .18s;font-family:'Noto Serif TC',serif;white-space:nowrap}
+.btn-pr{background:#2F3A55;color:#FFFBF4}.btn-pr:hover{background:#1E2B42}
+.btn-ok{background:var(--ok);color:var(--wh)}.btn-ok:hover{background:#15803D}
+.btn-out{background:transparent;border:1.5px solid var(--g3);color:var(--g7)}.btn-out:hover{border-color:#2F3A55;color:#2F3A55}
+.btn-ghost{background:var(--g1);color:var(--g6);border:none}.btn-ghost:hover{background:var(--g2)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-blk{width:100%;justify-content:center}
+.tag{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;margin:2px}
+.tb{background:#E8EBF2;color:#2F3A55}.to{background:var(--ac-lt);color:#C2410C}.tp{background:var(--pu-lt);color:var(--pu)}.tt{background:var(--te-lt);color:var(--te)}.tg{background:var(--ok-lt);color:var(--ok)}.tam{background:var(--am-lt);color:var(--am)}.tgy{background:var(--g1);color:var(--g6)}
+.badge-res{background:var(--pr-lt);color:var(--pr);border:1.5px solid var(--pr-bd);display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-ext{background:var(--am-lt);color:var(--am);border:1.5px solid #FDE68A;display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.wrap{max-width:1160px;margin:0 auto;padding:24px 24px}
+.pg{display:none}.pg.on{display:block}
+.card{background:var(--wh);border-radius:var(--r16);border:1px solid var(--g2);overflow:hidden;box-shadow:var(--sh)}
+.chd{padding:14px 20px 12px;border-bottom:1px solid var(--g1);display:flex;align-items:center;justify-content:space-between}
+.cht{font-size:14px;font-weight:700}
+.cbd{padding:16px 20px}
+.slbl{font-size:11px;font-weight:700;color:var(--g4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.div{height:1px;background:var(--g1);margin:14px 0}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--g8);color:var(--wh);padding:12px 24px;border-radius:40px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s ease;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.pbar{height:5px;background:var(--g2);border-radius:3px;overflow:hidden;margin:4px 0 12px}
+.pf{height:100%;border-radius:3px;transition:width .5s}
+.litem{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g1);cursor:pointer;transition:padding-left .15s}
+.litem:last-child{border-bottom:none}
+.litem:hover{padding-left:4px}
+.lic{width:36px;height:36px;border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.linf{flex:1;min-width:0}
+.lt2{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ls2{font-size:11px;color:var(--g4);margin-top:1px}
+.sbox{background:var(--g1);border-radius:var(--r8);padding:12px 8px;text-align:center}
+.sn{font-size:20px;font-weight:800;color:#2F3A55;font-family:'Noto Serif TC',serif}
+.sl{font-size:10px;color:var(--g4);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.plat-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--wh);flex-shrink:0}
+.pi-li{background:#0A66C2}.pi-104{background:#E8002D}.pi-dc{background:#6E6960}
+.swipe-main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.sarena{display:flex;flex-direction:column;align-items:center;gap:16px}
+.hrow{display:flex;gap:20px;align-items:center;font-size:12px;color:var(--g4)}
+.hit{display:flex;align-items:center;gap:7px}
+.hic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid}
+.hic.nope{border-color:var(--no);color:var(--no);background:var(--no-lt)}
+.hic.like{border-color:var(--ok);color:var(--ok);background:var(--ok-lt)}
+.prog-row{width:100%;max-width:440px}
+.prog-bar{height:4px;background:var(--g2);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--pr);border-radius:2px;transition:width .4s}
+.prog-lbl{font-size:11px;color:var(--g4);text-align:center;margin-top:4px}
+.stack{position:relative;width:100%;max-width:440px;height:510px}
+.sc{position:absolute;inset:0;background:var(--wh);border-radius:var(--r24);border:1px solid var(--g2);box-shadow:var(--sh-lg);overflow:hidden;cursor:grab;user-select:none;transform-origin:center bottom}
+.sc:active{cursor:grabbing}
+.sc.b2{transform:scale(.96) translateY(8px);z-index:1;box-shadow:var(--sh)}
+.sc.b3{transform:scale(.92) translateY(16px);z-index:0;box-shadow:none}
+.sc.top{z-index:10}
+.sc-img{height:195px;position:relative;display:flex;align-items:center;justify-content:center}
+.sc-type{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;color:var(--wh);text-transform:uppercase;letter-spacing:.04em}
+.sc-match{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;color:var(--wh)}
+.sc-body{padding:18px 20px}
+.sc-org{font-size:10px;color:var(--g4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.sc-name{font-size:17px;font-weight:800;line-height:1.3;margin-bottom:7px}
+.sc-desc{font-size:12px;color:var(--g6);line-height:1.6;margin-bottom:10px}
+.sc-meta{display:flex;gap:10px;font-size:11px;color:var(--g4);margin-bottom:10px;flex-wrap:wrap}
+.li-ind,.no-ind{position:absolute;top:32px;padding:6px 18px;border-radius:4px;font-size:20px;font-weight:900;border:3px solid;opacity:0;z-index:20;pointer-events:none;letter-spacing:.06em}
+.li-ind{right:20px;color:var(--ok);border-color:var(--ok);background:var(--ok-lt);transform:rotate(14deg)}
+.no-ind{left:20px;color:var(--no);border-color:var(--no);background:var(--no-lt);transform:rotate(-14deg)}
+.swbtns{display:flex;align-items:center;gap:12px}
+.swb{border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .18s}
+.swb:hover{transform:scale(1.1)}
+.swb.nope{width:54px;height:54px;background:var(--wh);color:var(--no);border:2px solid var(--no-lt);font-size:20px}
+.swb.nope:hover{background:var(--no-lt);border-color:var(--no)}
+.swb.info{width:42px;height:42px;background:var(--wh);color:var(--pr);border:1.5px solid var(--g2);font-size:15px}
+.swb.info:hover{background:var(--pr-lt)}
+.swb.fav{width:64px;height:64px;background:#3A5A40;color:var(--wh);font-size:24px}
+.swb.fav:hover{background:#2E4732}
+.mbg{display:none;position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:500;align-items:center;justify-content:center}
+.mbg.show{display:flex}
+.modal{background:var(--wh);border-radius:var(--r24);width:500px;max-width:95vw;overflow:hidden;max-height:85vh;overflow-y:auto;box-shadow:var(--sh-lg)}
+.m-img{height:155px;display:flex;align-items:center;justify-content:center}
+.m-bd{padding:20px}
+.m-org{font-size:10px;color:var(--g4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.m-ttl{font-size:17px;font-weight:800;margin-bottom:9px;line-height:1.3}
+.m-sec{font-size:10px;font-weight:700;color:var(--g4);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 5px}
+.m-txt{font-size:12px;color:var(--g6);line-height:1.75}
+.m-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
+.m-stat{background:var(--g1);border-radius:var(--r8);padding:11px;text-align:center}
+.m-sn{font-size:16px;font-weight:800;color:var(--g8);font-family:'Noto Serif TC',serif}
+.m-sl{font-size:10px;color:var(--g4);margin-top:2px}
+.m-acts{display:flex;gap:8px;margin-top:16px}
+.mentor-type-bar{display:flex;background:var(--g1);border-radius:var(--r12);padding:4px;gap:3px;margin-bottom:18px}
+.mttab{flex:1;padding:8px;border-radius:var(--r8);border:none;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;color:var(--g5);background:transparent;transition:all .18s;text-align:center}
+.mttab.on{background:var(--wh);color:#2F3A55;font-weight:700;box-shadow:var(--sh)}
+.mentor-list{display:flex;flex-direction:column;gap:12px}
+.mcard{background:var(--wh);border-radius:var(--r16);border:1px solid var(--g2);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:all .2s;display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:stretch}
+.mcard:hover{transform:translateY(-2px);box-shadow:var(--sh-md);border-color:#2F3A55}
+.mcard-left{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 0;background:var(--g1);gap:6px;min-width:64px}
+.mcard-ava{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--wh)}
+.mcard-body{padding:14px 18px;display:flex;flex-direction:column;gap:4px}
+.mcard-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mcard-name{font-size:15px;font-weight:800}
+.mcard-role{font-size:12px;color:var(--g4)}
+.mcard-bio{font-size:12px;color:var(--g6);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mcard-bottom{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:2px}
+.mcard-stat{font-size:11px;color:var(--g4);display:flex;align-items:center;gap:3px}
+.mcard-ext{display:flex;gap:5px}
+.ext-chip{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--r8);font-size:11px;font-weight:600;border:1px solid var(--g2);background:var(--g0);color:var(--g6);transition:all .18s}
+.ext-chip:hover{border-color:#2F3A55;color:#2F3A55;background:#E8EBF2}
+.mcard-right{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px 18px;border-left:1px solid var(--g1);min-width:130px}
+.mp-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px;align-items:start}
+.mp-sidebar{display:flex;flex-direction:column;gap:14px}
+.mp-main{display:flex;flex-direction:column;gap:14px}
+.mp-card{background:var(--wh);border-radius:var(--r16);border:1px solid var(--g2);padding:20px;box-shadow:var(--sh)}
+.mp-banner{height:78px;margin:-20px -20px 0}
+.mp-ava-row{display:flex;align-items:flex-end;gap:10px;margin-bottom:14px;margin-top:-26px}
+.mp-ava{width:64px;height:64px;border-radius:50%;border:3px solid var(--wh);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--wh);flex-shrink:0}
+.mp-name{font-size:17px;font-weight:900;margin-bottom:2px}
+.mp-role{font-size:12px;color:var(--g4);margin-bottom:10px}
+.mp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.mp-stat{background:var(--g1);border-radius:var(--r8);padding:9px;text-align:center}
+.mp-sn{font-size:17px;font-weight:800;color:#2F3A55;font-family:'Noto Serif TC',serif}
+.mp-sl{font-size:10px;color:var(--g4);margin-top:1px}
+.mp-tl{display:flex;flex-direction:column;gap:0}
+.mp-ti{display:flex;gap:10px;padding:9px 0;position:relative}
+.mp-ti::before{content:'';position:absolute;left:14px;top:30px;width:2px;height:calc(100% - 6px);background:var(--g2)}
+.mp-ti:last-child::before{display:none}
+.mp-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;position:relative;z-index:1;border:2px solid var(--g2);background:var(--wh)}
+.mp-dot.now{background:#2F3A55;border-color:#2F3A55;color:#FFFBF4}
+.mp-dot.past{background:var(--g1)}
+.mp-tinfo{flex:1;padding-top:1px}
+.mp-tyear{font-size:10px;color:var(--g4);font-weight:600}
+.mp-tttl{font-size:12px;font-weight:700}
+.mp-torg{font-size:11px;color:var(--g5)}
+.acard{background:var(--wh);border-radius:var(--r16);border:1px solid var(--g2);padding:18px;box-shadow:var(--sh);cursor:pointer;transition:all .18s}
+.acard:hover{border-color:#2F3A55;box-shadow:var(--sh-md)}
+.acard-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.acard-ava{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--wh);flex-shrink:0}
+.acard-author{font-size:12px;font-weight:600}
+.acard-date{font-size:11px;color:var(--g4)}
+.acard-ttl{font-size:15px;font-weight:800;margin-bottom:6px;line-height:1.35}
+.acard-exc{font-size:12px;color:var(--g5);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px}
+.acard-foot{display:flex;align-items:center;justify-content:space-between}
+.acard-stats{display:flex;gap:12px;font-size:11px;color:var(--g4)}
+.contact-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:600;align-items:center;justify-content:center}
+.contact-overlay.show{display:flex}
+.cform{background:var(--wh);border-radius:var(--r24);width:460px;max-width:95vw;padding:26px;box-shadow:var(--sh-lg)}
+.form-row{margin-bottom:12px}
+.form-lbl{font-size:12px;font-weight:600;color:var(--g6);margin-bottom:5px;display:block}
+.form-inp{width:100%;padding:9px 13px;border-radius:var(--r8);border:1.5px solid var(--g2);font-family:inherit;font-size:13px;color:var(--g8);transition:border-color .18s}
+.form-inp:focus{outline:none;border-color:var(--pr)}
+.form-ta{width:100%;padding:9px 13px;border-radius:var(--r8);border:1.5px solid var(--g2);font-family:inherit;font-size:13px;color:var(--g8);resize:vertical;min-height:90px;transition:border-color .18s}
+.form-ta:focus{outline:none;border-color:var(--pr)}
+.anxiety-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.azone{background:var(--wh);border-radius:var(--r16);border:1px solid var(--g2);padding:22px;box-shadow:var(--sh)}
+.azone.nv{border-top:4px solid #2F3A55}.azone.pu{border-top:4px solid #565449}
+.rrow{display:flex;align-items:center;gap:9px;padding:9px 11px;background:var(--g1);border-radius:var(--r8);margin-bottom:6px;cursor:pointer;transition:background .18s}
+.rrow:hover{background:#E8EBF2}
+.ri{font-size:15px;flex-shrink:0}.rinf{flex:1;min-width:0}.rt{font-size:12px;font-weight:600}.rs2{font-size:11px;color:var(--g4)}.ra{font-size:12px;color:var(--g3)}
+.tl{display:flex;align-items:center;justify-content:center;overflow-x:auto;padding:16px 0 6px;gap:0}
+.tn{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:70px}
+.td{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid var(--g2);background:var(--wh);position:relative;z-index:1}
+.td.done{background:#2F3A55;border-color:#2F3A55;color:#FFFBF4}.td.now{background:#565449;border-color:#565449;color:var(--wh);box-shadow:0 0 0 4px rgba(86,84,73,.15)}.td.future{background:var(--g1);color:var(--g3)}
+.tline{height:2px;width:34px;background:var(--g2);margin-top:-21px}.tline.done{background:var(--pr)}
+.tnl{font-size:10px;color:var(--g5);text-align:center;line-height:1.4}
+.fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.fcard{background:var(--wh);border-radius:var(--r16);border:2px solid var(--g2);padding:20px;cursor:pointer;transition:all .2s;text-align:center}
+.fcard:hover{border-color:var(--pr);transform:translateY(-3px)}.fcard.sel{border-color:#2F3A55;background:#E8EBF2;box-shadow:0 0 0 3px rgba(47,58,85,.14)}
+.fc-ico{font-size:34px;margin-bottom:10px}.fc-ttl{font-size:13px;font-weight:700;margin-bottom:5px}.fc-prob{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;background:var(--ok-lt);color:var(--ok)}.fcard.sel .fc-prob{background:#2F3A55;color:#FFFBF4}.fc-desc{font-size:11px;color:var(--g5);margin-top:7px;line-height:1.5}
+.rm{background:var(--wh);border-radius:var(--r16);border:1px solid var(--g2);padding:22px;display:none}.rm.show{display:block}
+.rm-ttl{font-size:14px;font-weight:700;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--g1);display:flex;align-items:center;gap:7px}
+.rstep{display:flex;gap:12px;margin-bottom:18px;position:relative}
+.rstep::before{content:'';position:absolute;left:16px;top:36px;width:2px;height:calc(100% + 4px);background:var(--g2)}.rstep:last-child::before{display:none}
+.rnum{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;position:relative;z-index:1;border:2px solid;font-family:'Noto Serif TC',serif}
+.rnum.s1{background:var(--pr-lt);border-color:var(--pr);color:var(--pr)}.rnum.s2{background:var(--pu-lt);border-color:var(--pu);color:var(--pu)}.rnum.s3{background:var(--te-lt);border-color:var(--te);color:var(--te)}
+.ph{text-align:center;padding:36px;color:var(--g3)}.ph .ico{font-size:38px;margin-bottom:10px}.ph p{font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="nav">
+ <div class="nav-logo">
+  <div class="nav-icon">
+   <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Career Swipe 標誌">
+    <!-- 圓角正方形底座 -->
+    <rect width="38" height="38" rx="9" fill="#2F3A55"/>
+    <!--
+      字母標誌設計：
+      大寫 C，開口朝右，右側開口處嵌入一個向右的箭頭，
+      象徵「右滑」配對動作，字母即品牌。
+      C 的筆畫寬度 2.6px，色 #FFFBF4。
+    -->
+    <!-- C 弧形主體：圓心 (17,19)，半徑 9，從 40° 至 320°（開口朝右） -->
+    <path
+      d="M24.1 11.6 A9.5 9.5 0 1 0 24.1 26.4"
+      stroke="#FFFBF4"
+      stroke-width="2.6"
+      stroke-linecap="round"
+      fill="none"
+    />
+    <!-- 箭頭：嵌在 C 的開口，向右指 -->
+    <line x1="24.5" y1="19" x2="30" y2="19" stroke="#FFFBF4" stroke-width="2.2" stroke-linecap="round"/>
+    <polyline points="27.2,15.8 30.8,19 27.2,22.2" stroke="#FFFBF4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+   </svg>
+  </div>
+  <div style="display:flex;flex-direction:column;line-height:1.15">
+   <span style="font-size:16px;font-weight:700;color:#FFFBF4;letter-spacing:.03em">Career Swipe</span>
+   <span style="font-size:9.5px;color:rgba(255,251,244,.55);letter-spacing:.06em;font-weight:400">臺北市政府青年局</span>
+  </div>
+ </div>
+ <div class="nav-tabs">
+ <button class="ntab" onclick="goPg('profile',this)">個人檔案</button>
+ <button class="ntab on" onclick="goPg('swipe',this)">資源配對</button>
+ <button class="ntab" onclick="goPg('mentor',this)">Mentor 導師</button>
+ <button class="ntab" onclick="goPg('anxiety',this)">焦慮專區</button>
+ <button class="ntab" onclick="goPg('path',this)">職涯路徑</button>
+ </div>
+ <div class="nav-r">
+ <button class="btn btn-sm" style="background:transparent;border:1.5px solid rgba(255,251,244,.6);color:#FFFBF4;border-radius:var(--r8);padding:5px 12px;font-size:12px;cursor:pointer;font-family:'Noto Serif TC',serif;font-weight:600;white-space:nowrap;transition:all .18s" onmouseover="this.style.background='rgba(255,251,244,.12)'" onmouseout="this.style.background='transparent'" onclick="showToast('即將跳轉至成為 Mentor 申請頁面')">成為 Mentor</button>
+ <button class="btn btn-ghost btn-sm"></button>
+ <div class="ava">張</div>
+ </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="wrap">
+
+<!-- PROFILE -->
+<div class="pg" id="pg-profile">
+ <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px;align-items:start">
+ <div style="display:flex;flex-direction:column;gap:14px">
+ <div class="card">
+ <div class="cbd" style="text-align:center;padding-top:22px">
+ <div style="width:68px;height:68px;border-radius:50%;background:#8A8577;display:flex;align-items:center;justify-content:center;color:var(--wh);font-size:26px;font-weight:700;margin:0 auto 12px">張</div>
+ <div style="font-size:17px;font-weight:900;margin-bottom:3px">張小晏</div>
+ <div style="font-size:12px;color:var(--g4);margin-bottom:16px">人類學系 · 應屆畢業生 · 22歲</div>
+ <div style="display:flex;gap:8px;margin-bottom:16px">
+ <div class="sbox" style="flex:1"><div class="sn" id="p-matched">0</div><div class="sl">已配對</div></div>
+ <div class="sbox" style="flex:1"><div class="sn">94%</div><div class="sl">完整度</div></div>
+ <div class="sbox" style="flex:1"><div class="sn" id="p-fav">0</div><div class="sl">收藏</div></div>
+ </div>
+ <button class="btn btn-pr btn-blk btn-sm">編輯個人資料</button>
+ </div>
+ </div>
+ <div class="card">
+ <div class="chd"><span class="cht"> 我的標籤</span></div>
+ <div class="cbd">
+ <div class="slbl">技能</div>
+ <div style="margin-bottom:12px"><span class="tag tb">人類學系</span><span class="tag tb">質性研究</span><span class="tag tb">田野調查 ×2</span></div>
+ <div class="slbl">興趣</div>
+ <div style="margin-bottom:12px"><span class="tag to">以理解他人為核心驅動力</span><span class="tag to">深度洞察</span></div>
+ <div class="slbl">職涯目標</div>
+ <div style="margin-bottom:12px"><span class="tag tp">文組能力商業轉譯困難</span><span class="tag tt">方向空白型焦慮</span></div>
+ <div class="slbl">焦慮類型</div>
+ <div><span class="tag" style="background:#F5E0E0;color:#7A2B2B">細膩感受力</span><span class="tag" style="background:#F5E0E0;color:#7A2B2B">容易被不確定性淹沒</span></div>
+ </div>
+ </div>
+ </div>
+ <div style="display:flex;flex-direction:column;gap:14px">
+ <div class="card">
+ <div class="chd"><span class="cht"> 基本資料</span><button class="btn btn-out btn-sm">編輯</button></div>
+ <div class="cbd" style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+ <div style="padding-right:20px;border-right:1px solid var(--g1)">
+ <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g1);font-size:13px"><span style="color:var(--g4)">就讀學校</span><span style="font-weight:500">（人類學系所屬大學）</span></div>
+ <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g1);font-size:13px"><span style="color:var(--g4)">科系</span><span style="font-weight:500">人類學系</span></div>
+ <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g1);font-size:13px"><span style="color:var(--g4)">年級</span><span style="font-weight:500">應屆畢業</span></div>
+ <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px"><span style="color:var(--g4)">GPA</span><span style="font-weight:500">田野調查 ×2 次</span></div>
+ </div>
+ <div style="padding-left:20px">
+ <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g1);font-size:13px"><span style="color:var(--g4)">語言</span><span style="font-weight:500">中文、英文</span></div>
+ <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g1);font-size:13px"><span style="color:var(--g4)">地區</span><span style="font-weight:500">台北市</span></div>
+ <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g1);font-size:13px"><span style="color:var(--g4)">預計畢業</span><span style="font-weight:500">2025 年 6 月（應屆）</span></div>
+ <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px"><span style="color:var(--g4)">實習意願</span><span style="font-weight:500">探索期中，歡迎各種嘗試</span></div>
+ </div>
+ </div>
+ </div>
+ <div class="card">
+ <div class="chd"><span class="cht"> 收藏的資源</span></div>
+ <div class="cbd" id="profileFavList"><span style="font-size:13px;color:var(--g4)">右滑資源後會出現在這裡</span></div>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- SWIPE -->
+<div class="pg on" id="pg-swipe">
+ <div class="swipe-main">
+ <div class="sarena">
+ <div class="hrow">
+ <div class="hit"><div class="hic nope"></div><span>左滑・不感興趣</span></div>
+ <div style="width:1px;height:20px;background:var(--g2)"></div>
+ <div class="hit"><div class="hic like"></div><span>右滑・加入收藏</span></div>
+ </div>
+ <div class="prog-row">
+ <div class="prog-bar"><div class="prog-fill" id="pFill" style="width:0%"></div></div>
+ <div class="prog-lbl" id="pLbl">第 1 張，共 12 張</div>
+ </div>
+ <div class="stack" id="stack">
+ <div class="sc b3" id="sc3"></div>
+ <div class="sc b2" id="sc2"></div>
+ <div class="sc top" id="sc1" onmousedown="dStart(event)" ontouchstart="dStartT(event)">
+ <div class="li-ind" id="liInd">LIKE </div>
+ <div class="no-ind" id="noInd">NOPE </div>
+ <div class="sc-img" id="cImg"><span id="cEmoji" style="font-size:13px;font-weight:700;color:#565449;text-transform:uppercase;letter-spacing:.06em"></span></div>
+ <span class="sc-type" id="cType"></span>
+ <span class="sc-match" id="cMatch"></span>
+ <div class="sc-body">
+ <div class="sc-org" id="cOrg"></div>
+ <div class="sc-name" id="cName"></div>
+ <div class="sc-desc" id="cDesc"></div>
+ <div class="sc-meta" id="cMeta"></div>
+ <div id="cTags"></div>
+ </div>
+ </div>
+ </div>
+ <div class="swbtns">
+ <button class="swb nope" onclick="swL()"></button>
+ <button class="swb info" onclick="openM()"></button>
+ <button class="swb fav" onclick="swR()"></button>
+ </div>
+ </div>
+ <div style="display:flex;flex-direction:column;gap:14px">
+ <div class="card">
+ <div class="chd"><span class="cht"> 今日配對</span></div>
+ <div class="cbd">
+ <div style="display:flex;gap:8px;margin-bottom:14px">
+ <div class="sbox" style="flex:1"><div class="sn" style="color:var(--ok)" id="likeC">0</div><div class="sl">已喜歡</div></div>
+ <div class="sbox" style="flex:1"><div class="sn" id="leftC">12</div><div class="sl">剩餘</div></div>
+ </div>
+ <div class="slbl">整體相符度</div>
+ <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span style="color:var(--g4)">配對品質</span><span style="font-weight:700">87%</span></div>
+ <div class="pbar"><div class="pf" style="width:87%;background:#2F3A55"></div></div>
+ <div class="slbl">標籤命中率</div>
+ <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span style="color:var(--g4)">政策分析</span><span style="font-weight:700">92%</span></div>
+ <div class="pbar"><div class="pf" style="width:92%;background:#2F3A55"></div></div>
+ <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span style="color:var(--g4)">跨域轉型</span><span style="font-weight:700">78%</span></div>
+ <div class="pbar"><div class="pf" style="width:78%;background:#565449"></div></div>
+ </div>
+ </div>
+ <div class="card">
+ <div class="chd"><span class="cht"> 最新收藏</span></div>
+ <div class="cbd" id="favList"><span style="font-size:12px;color:var(--g4)">右滑後出現在這裡</span></div>
+ </div>
+ <div class="card">
+ <div class="chd"><span class="cht"> 熱門資源</span></div>
+ <div class="cbd">
+ <div class="litem"><div class="lic" style="background:var(--pr-lt)"></div><div class="linf"><div class="lt2">資料分析入門課</div><div class="ls2">台北市政府 × Coursera</div></div><span class="tag to" style="font-size:10px">熱門</span></div>
+ <div class="litem"><div class="lic" style="background:var(--ok-lt)"></div><div class="linf"><div class="lt2">智庫研究員實習</div><div class="ls2">台灣民主基金會</div></div><span class="tag tb" style="font-size:10px">新增</span></div>
+ <div class="litem"><div class="lic" style="background:var(--pu-lt)"></div><div class="linf"><div class="lt2">日本 Youth Exchange</div><div class="ls2">全費補助</div></div><span class="tag tg" style="font-size:10px">搶手</span></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="mbg" id="mBg" onclick="closeMBg(event)">
+ <div class="modal">
+ <div class="m-img" id="mImg" style="font-size:13px;font-weight:700;color:#565449;text-transform:uppercase;letter-spacing:.06em"><span id="mEmoji"></span></div>
+ <div class="m-bd">
+ <div class="m-org" id="mOrg"></div>
+ <div class="m-ttl" id="mTtl"></div>
+ <div id="mTgs"></div>
+ <div class="m-sec">主辦單位</div><div class="m-txt" id="mHost"></div>
+ <div class="m-sec">詳細說明</div><div class="m-txt" id="mDesc"></div>
+ <div class="m-sec">配對理由</div><div class="m-txt" id="mRsn"></div>
+ <div class="m-sec">報名資格</div><div class="m-txt" id="mElig"></div>
+ <div class="m-grid">
+ <div class="m-stat"><div class="m-sn" id="mPct"></div><div class="m-sl">配對分數</div></div>
+ <div class="m-stat"><div class="m-sn" id="mDl"></div><div class="m-sl">截止</div></div>
+ <div class="m-stat"><div class="m-sn" id="mFee"></div><div class="m-sl">費用</div></div>
+ </div>
+ <div class="m-sec">聯絡方式</div><div class="m-txt" id="mContact"></div>
+ <div class="m-acts">
+ <button class="btn btn-ok" style="flex:1" onclick="favFromM()"> 加入最愛</button>
+ <button class="btn btn-out" onclick="closeMBg()">關閉</button>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- MENTOR -->
+<div class="pg" id="pg-mentor">
+ <div id="mentorSubNav" style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+ <div class="mentor-type-bar" style="flex:1;max-width:460px">
+ <button class="mttab on" onclick="filterM('all',this)">全部 Mentor</button>
+ <button class="mttab" onclick="filterM('resident',this)"> 進駐平台 <span style="background:var(--pr);color:var(--wh);border-radius:20px;padding:1px 7px;font-size:10px;margin-left:3px">7</span></button>
+ <button class="mttab" onclick="filterM('external',this)"> 外部平台 <span style="background:var(--am);color:var(--wh);border-radius:20px;padding:1px 7px;font-size:10px;margin-left:3px">5</span></button>
+ </div>
+ <input style="flex:1;padding:9px 14px;border-radius:var(--r12);border:1.5px solid var(--g2);font-family:inherit;font-size:13px;max-width:260px" type="text" placeholder="搜尋 Mentor 姓名、職稱…">
+ <select style="padding:9px 12px;border-radius:var(--r12);border:1.5px solid var(--g2);font-family:inherit;font-size:13px">
+ <option>配對度排序</option><option>最新加入</option><option>諮詢次數</option>
+ </select>
+ </div>
+ <div class="mentor-list" id="mentorListView">
+ <div class="mcard" onclick="openMentorProfile('resident')">
+ <div class="mcard-left" style="background:#F4EFE6">
+ <div class="mcard-ava" style="background:#8A8577">張</div>
+ <div style="width:8px;height:8px;border-radius:50%;background:var(--pr)"></div>
+ </div>
+ <div class="mcard-body">
+ <div class="mcard-top"><span class="mcard-name">吳品潔</span><span class="badge-res"> 進駐平台</span><span class="tag tg" style="margin-left:auto">配對 89%</span></div>
+ <div class="mcard-role">現職：UX 研究員 · 學歷：社會學系</div>
+ <div style="margin-bottom:4px"><span class="tag tb">質性研究</span><span class="tag tp">陪伴探索型</span><span class="tag tg">文組轉UX</span></div>
+ <div class="mcard-bio">社會學系出身，無技術本科背景，透過質性研究能力進入 UX 領域。擅長陪伴探索型諮詢，幫助你重新定義既有能力，對不確定性有高耐受度。</div>
+ <div class="mcard-bottom"><span class="mcard-stat"> 14 篇文章</span><span class="mcard-stat"> 23 次諮詢</span><span class="mcard-stat">⭐ 4.9</span><span class="mcard-stat"> 平日晚間・假日</span></div>
+ </div>
+ <div class="mcard-right">
+ <button class="btn btn-pr btn-sm" style="width:100%" onclick="event.stopPropagation();openContactForm('吳品潔')">聯繫 Mentor</button>
+ <button class="btn btn-out btn-sm" style="width:100%" onclick="event.stopPropagation();openMentorProfile('resident')">查看檔案</button>
+ <button class="btn btn-ghost btn-sm" style="width:100%" onclick="event.stopPropagation();showToast(' 已開啟預約日曆')">預約視訊</button>
+ </div>
+ </div>
+ <div class="mcard" onclick="showToast('開啟林柏宇 Mentor 頁面')">
+ <div class="mcard-left" style="background:#F4EFE6">
+ <div class="mcard-ava" style="background:#565449">王</div>
+ <div style="width:8px;height:8px;border-radius:50%;background:var(--pr)"></div>
+ </div>
+ <div class="mcard-body">
+ <div class="mcard-top"><span class="mcard-name">林柏宇</span><span class="badge-res"> 進駐平台</span><span class="tag tam" style="margin-left:auto">配對 67%</span></div>
+ <div class="mcard-role">現職：品牌策略專員 · 學歷：外文系</div>
+ <div style="margin-bottom:4px"><span class="tag tb">品牌策略</span><span class="tag to">內容策略</span><span class="tag tam">海外經驗</span></div>
+ <div class="mcard-bio">外文系出身，有海外經驗，職涯路徑清晰。目標導向、直接給具體行動建議，擅長快速盤點問題大方向。</div>
+ <div class="mcard-bottom"><span class="mcard-stat"> 8 篇文章</span><span class="mcard-stat"> 31 次諮詢</span><span class="mcard-stat">⭐ 4.8</span><span class="mcard-stat"> 假日</span></div>
+ </div>
+ <div class="mcard-right">
+ <button class="btn btn-pr btn-sm" style="width:100%" onclick="event.stopPropagation();openContactForm('林柏宇')">聯繫 Mentor</button>
+ <button class="btn btn-out btn-sm" style="width:100%" onclick="event.stopPropagation();showToast('開啟林柏宇 Mentor 頁面')">查看檔案</button>
+ <button class="btn btn-ghost btn-sm" style="width:100%" onclick="event.stopPropagation();showToast(' 已開啟預約日曆')">預約視訊</button>
+ </div>
+ </div>
+ <div class="mcard" onclick="openMentorProfile('external')">
+ <div class="mcard-left" style="background:#F4EFE6">
+ <div class="mcard-ava" style="background:#6E6960">李</div>
+ <div style="width:8px;height:8px;border-radius:50%;background:var(--am)"></div>
+ </div>
+ <div class="mcard-body">
+ <div class="mcard-top"><span class="mcard-name">陳映廷（案例）</span><span class="badge-ext"> 外部平台</span><span class="tag tb" style="margin-left:auto">案例</span></div>
+ <div class="mcard-role">真實職涯轉換案例 · 文組跨域</div>
+ <div style="margin-bottom:4px"><span class="tag tp">文組跨域</span><span class="tag tb">質性轉UX</span><span class="tag to">同溫層故事</span></div>
+ <div class="mcard-bio">人類學系畢業後進入 UX 研究領域的真實轉換故事，整理自公開平台分享，記錄非典型路徑的可能性。</div>
+ <div class="mcard-bottom">
+ <div class="mcard-ext">
+ <div class="ext-chip" onclick="event.stopPropagation();showToast('前往 LinkedIn')"><div class="plat-icon pi-li">in</div>LinkedIn</div>
+ <div class="ext-chip" onclick="event.stopPropagation();showToast('前往 104')"><div class="plat-icon pi-104">1</div>104</div>
+ <div class="ext-chip" onclick="event.stopPropagation();showToast('前往 Dcard')"><div class="plat-icon pi-dc">D</div>Dcard</div>
+ </div>
+ </div>
+ </div>
+ <div class="mcard-right">
+ <button class="btn btn-out btn-sm" style="width:100%" onclick="event.stopPropagation();openMentorProfile('external')">查看彙整頁</button>
+ <button class="btn btn-ghost btn-sm" style="width:100%" onclick="event.stopPropagation();showToast('前往 LinkedIn')">LinkedIn ↗</button>
+ <div style="font-size:10px;color:var(--g4);text-align:center;margin-top:2px">資料整理自公開平台</div>
+ </div>
+ </div>
+ <div class="mcard" onclick="showToast('開啟謝宜安（案例） Mentor 頁面')">
+ <div class="mcard-left" style="background:#F4EFE6">
+ <div class="mcard-ava" style="background:#6E6960">張</div>
+ <div style="width:8px;height:8px;border-radius:50%;background:var(--pr)"></div>
+ </div>
+ <div class="mcard-body">
+ <div class="mcard-top"><span class="mcard-name">謝宜安（案例）</span><span class="badge-res"> 進駐平台</span><span class="tag tb" style="margin-left:auto">案例</span></div>
+ <div class="mcard-role">真實職涯轉換案例 · 文組跨域</div>
+ <div style="margin-bottom:4px"><span class="tag tp">哲學系出身</span><span class="tag tb">品牌策略</span><span class="tag to">跨域成功</span></div>
+ <div class="mcard-bio">哲學系畢業後進入品牌策略領域的真實轉換故事，展示批判性思維如何被商業應用，文組能力的轉譯可能。</div>
+ <div class="mcard-bottom"><span class="mcard-stat"> 19 篇文章</span><span class="mcard-stat"> 18 次諮詢</span><span class="mcard-stat">⭐ 5.0</span><span class="mcard-stat"> 平日晚間</span></div>
+ </div>
+ <div class="mcard-right">
+ <button class="btn btn-pr btn-sm" style="width:100%" onclick="event.stopPropagation();openContactForm('謝宜安（案例）')">聯繫 Mentor</button>
+ <button class="btn btn-out btn-sm" style="width:100%" onclick="event.stopPropagation();showToast('開啟謝宜安（案例） Mentor 頁面')">查看檔案</button>
+ <button class="btn btn-ghost btn-sm" style="width:100%" onclick="event.stopPropagation();showToast(' 已開啟預約日曆')">預約視訊</button>
+ </div>
+ </div>
+ </div>
+
+ <div id="mentorProfileRes" style="display:none">
+ <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+ <button class="btn btn-ghost btn-sm" onclick="closeProfile()">← 返回列表</button>
+ <span class="badge-res"> 進駐平台 Mentor</span>
+ </div>
+ <div class="mp-layout">
+ <div class="mp-sidebar">
+ <div class="mp-card">
+ <div class="mp-banner" style="background:#565449"></div>
+ <div class="mp-ava-row"><div class="mp-ava" style="background:#8A8577">張</div></div>
+ <div class="mp-name">吳品潔</div>
+ <div class="mp-role">現職：UX 研究員 · 學歷：社會學系</div>
+ <div style="margin-bottom:10px"><span class="tag tb">質性研究</span><span class="tag tp">陪伴探索型</span><span class="tag tg">文組轉UX</span><span class="tag tt">PM 職涯</span></div>
+ <div style="font-size:12px;color:var(--g6);line-height:1.7;margin-bottom:12px">政治系出身，歷任立法院研究員、Google 台灣 PM，現創立 GovTech 新創「城市實驗室」。深信文科生的系統思維是科技業最缺乏的核心競爭力。</div>
+ <div class="mp-stats">
+ <div class="mp-stat"><div class="mp-sn">14</div><div class="mp-sl">篇文章</div></div>
+ <div class="mp-stat"><div class="mp-sn">23</div><div class="mp-sl">次諮詢</div></div>
+ <div class="mp-stat"><div class="mp-sn">4.9</div><div class="mp-sl">評分</div></div>
+ </div>
+ <div class="div"></div>
+ <button class="btn btn-pr btn-blk btn-sm" style="margin-bottom:8px" onclick="openContactForm('吳品潔')"> 聯繫 Mentor</button>
+ <button class="btn btn-out btn-blk btn-sm"> 預約視訊諮詢</button>
+ </div>
+ <div class="mp-card">
+ <div class="slbl" style="margin-bottom:10px">基本資訊</div>
+ <div style="font-size:12px;display:flex;flex-direction:column;gap:7px">
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--g4)">諮詢語言</span><span>中文、英文</span></div>
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--g4)">可約時段</span><span>平日晚間、假日</span></div>
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--g4)">剩餘名額</span><span style="color:var(--ok);font-weight:700">3 名</span></div>
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--g4)">回覆速度</span><span>通常 1 天內</span></div>
+ </div>
+ <div class="div"></div>
+ <div class="slbl" style="margin-bottom:8px">擅長協助</div>
+ <div style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+ <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--ok)"></span>文科轉科技業策略</div>
+ <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--ok)"></span>PM / PO 職涯路徑</div>
+ <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--ok)"></span>GovTech 公部門科技化</div>
+ <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--ok)"></span>履歷與作品集 Review</div>
+ <div style="display:flex;align-items:center;gap:6px"><span style="color:var(--ok)"></span>面試準備與模擬</div>
+ </div>
+ <div class="div"></div>
+ <div class="slbl" style="margin-bottom:10px">職涯歷程</div>
+ <div class="mp-tl">
+ <div class="mp-ti"><div class="mp-dot now"></div><div class="mp-tinfo"><div class="mp-tyear">2022–現在</div><div class="mp-tttl">城市實驗室 共同創辦人</div><div class="mp-torg">GovTech 新創・台北市</div></div></div>
+ <div class="mp-ti"><div class="mp-dot past">G</div><div class="mp-tinfo"><div class="mp-tyear">2019–2022</div><div class="mp-tttl">產品經理 PM</div><div class="mp-torg">Google Taiwan</div></div></div>
+ <div class="mp-ti"><div class="mp-dot past"></div><div class="mp-tinfo"><div class="mp-tyear">2017–2019</div><div class="mp-tttl">法案助理 / 政策研究員</div><div class="mp-torg">立法院</div></div></div>
+ <div class="mp-ti"><div class="mp-dot past"></div><div class="mp-tinfo"><div class="mp-tyear">2013–2017</div><div class="mp-tttl">政治學系 學士</div><div class="mp-torg">國立政治大學</div></div></div>
+ </div>
+ </div>
+ </div>
+ <div class="mp-main">
+ <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+ <div style="font-size:16px;font-weight:800">吳品潔的文章與分享</div>
+ <div style="display:flex;gap:5px">
+ <button class="btn btn-ghost btn-sm" style="color:var(--pr);background:var(--pr-lt)">全部</button>
+ <button class="btn btn-ghost btn-sm">職涯心得</button>
+ <button class="btn btn-ghost btn-sm">產業觀察</button>
+ </div>
+ </div>
+ <div class="acard" onclick="showToast('開啟文章全文')">
+ <div class="acard-meta"><div class="acard-ava" style="background:#8A8577">張</div><div><div class="acard-author">吳品潔</div><div class="acard-date">2025年2月18日・職涯心得</div></div><span class="tag tg" style="margin-left:auto">熱門</span></div>
+ <div class="acard-ttl">政治系畢業後，我如何說服 Google 錄用我？</div>
+ <div class="acard-exc">許多人問我，沒有技術背景的政治系學生，究竟怎麼進入 Google 擔任 PM？其實關鍵不在於你學了什麼，而在於你能否清晰地定義問題。</div>
+ <div class="acard-foot"><div><span class="tag tb">職涯心得</span><span class="tag tg">文科轉科技</span></div><div class="acard-stats"><span> 2,341</span><span> 187</span><span> 43</span></div></div>
+ </div>
+ <div class="acard" onclick="showToast('開啟文章全文')" style="margin-top:10px">
+ <div class="acard-meta"><div class="acard-ava" style="background:#8A8577">張</div><div><div class="acard-author">吳品潔</div><div class="acard-date">2025年1月5日・產業觀察</div></div></div>
+ <div class="acard-ttl">2025 年台灣 GovTech 生態系的三個關鍵趨勢</div>
+ <div class="acard-exc">台灣政府數位轉型已進入第二階段——從「建置系統」走向「以人為本的服務設計」。這對有政策背景的青年來說，是千載難逢的切入機會。</div>
+ <div class="acard-foot"><div><span class="tag tt">GovTech</span><span class="tag tb">產業觀察</span></div><div class="acard-stats"><span> 1,892</span><span> 134</span><span> 28</span></div></div>
+ </div>
+ <div class="acard" onclick="showToast('開啟文章全文')" style="margin-top:10px">
+ <div class="acard-meta"><div class="acard-ava" style="background:#8A8577">張</div><div><div class="acard-author">吳品潔</div><div class="acard-date">2024年12月12日・工具推薦</div></div></div>
+ <div class="acard-ttl">文科 PM 的 AI 工具箱：我每天用的 5 個工具</div>
+ <div class="acard-exc">自從 ChatGPT 普及後，我的工作流程徹底改變。以下是我每天實際在用的五個 AI 工具，特別適合不會寫程式的 PM。</div>
+ <div class="acard-foot"><div><span class="tag to">工具推薦</span><span class="tag tb">AI 應用</span></div><div class="acard-stats"><span> 3,107</span><span> 256</span><span> 61</span></div></div>
+ </div>
+ <button class="btn btn-out btn-blk btn-sm" style="margin-top:10px" onclick="showToast('載入更多文章（11篇）')">載入更多文章 (11 篇)</button>
+ </div>
+ </div>
+ </div>
+
+ <div id="mentorProfileExt" style="display:none">
+ <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+ <button class="btn btn-ghost btn-sm" onclick="closeProfile()">← 返回列表</button>
+ <span class="badge-ext"> 外部平台 Mentor</span>
+ </div>
+ <div class="mp-layout">
+ <div class="mp-sidebar">
+ <div class="mp-card">
+ <div class="mp-banner" style="background:#8A8577"></div>
+ <div class="mp-ava-row"><div class="mp-ava" style="background:#6E6960">李</div></div>
+ <div class="mp-name">陳映廷（案例）</div>
+ <div class="mp-role">台灣微軟公民社會部總監</div>
+ <div style="margin-bottom:10px"><span class="tag tp">文組跨域</span><span class="tag tb">質性轉UX</span><span class="tag to">同溫層故事</span></div>
+ <div style="font-size:12px;color:var(--g6);line-height:1.7;margin-bottom:12px">歷史系畢業後進入台灣微軟，現任公民社會部總監。在多個平台活躍分享文組進科技業的心路歷程，高人氣職場創作者。</div>
+ <div style="background:var(--am-lt);border-radius:var(--r8);padding:10px 12px;margin-bottom:12px;font-size:11px;color:var(--am);display:flex;gap:7px"><span>ℹ</span><span>資訊由 Career Swipe 整理自外部平台公開資料。</span></div>
+ <div class="slbl" style="margin-bottom:10px">外部平台連結</div>
+ <div style="display:flex;flex-direction:column;gap:6px">
+ <div style="display:flex;align-items:center;justify-content:space-between;background:var(--g1);border-radius:var(--r8);padding:10px 12px"><div style="display:flex;align-items:center;gap:8px"><div class="plat-icon pi-li" style="width:26px;height:26px;border-radius:6px;font-size:13px">in</div><div><div style="font-size:12px;font-weight:600">LinkedIn</div><div style="font-size:11px;color:var(--g4)">個人頁面・9 篇文章</div></div></div><button class="btn btn-pr btn-sm" onclick="showToast('前往 LinkedIn')">前往 ↗</button></div>
+ <div style="display:flex;align-items:center;justify-content:space-between;background:var(--g1);border-radius:var(--r8);padding:10px 12px"><div style="display:flex;align-items:center;gap:8px"><div class="plat-icon pi-104" style="width:26px;height:26px;border-radius:6px;font-size:12px">1</div><div><div style="font-size:12px;font-weight:600">104 人力銀行</div><div style="font-size:11px;color:var(--g4)">公開履歷頁面</div></div></div><button class="btn btn-pr btn-sm" onclick="showToast('前往 104')">前往 ↗</button></div>
+ <div style="display:flex;align-items:center;justify-content:space-between;background:var(--g1);border-radius:var(--r8);padding:10px 12px"><div style="display:flex;align-items:center;gap:8px"><div class="plat-icon pi-dc" style="width:26px;height:26px;border-radius:6px;font-size:12px">D</div><div><div style="font-size:12px;font-weight:600">Dcard 職場板</div><div style="font-size:11px;color:var(--g4)">5 篇文章</div></div></div><button class="btn btn-pr btn-sm" onclick="showToast('前往 Dcard')">前往 ↗</button></div>
+ </div>
+ <div class="div"></div>
+ <div class="mp-tl">
+ <div class="mp-ti"><div class="mp-dot now">M</div><div class="mp-tinfo"><div class="mp-tyear">2021–現在</div><div class="mp-tttl">公民社會部 總監</div><div class="mp-torg">台灣微軟</div></div></div>
+ <div class="mp-ti"><div class="mp-dot past">M</div><div class="mp-tinfo"><div class="mp-tyear">2018–2021</div><div class="mp-tttl">政府事務部 資深專員</div><div class="mp-torg">台灣微軟</div></div></div>
+ <div class="mp-ti"><div class="mp-dot past"></div><div class="mp-tinfo"><div class="mp-tyear">2014–2018</div><div class="mp-tttl">歷史學系 學士</div><div class="mp-torg">國立台灣師範大學</div></div></div>
+ </div>
+ </div>
+ </div>
+ <div class="mp-main">
+ <div style="font-size:16px;font-weight:800;margin-bottom:12px">陳映廷（案例）在各平台的文章</div>
+ <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px"><div class="plat-icon pi-li">in</div><span style="font-size:12px;font-weight:700;color:#565449">LinkedIn 文章</span><span style="font-size:11px;color:var(--g4)">9 篇</span></div>
+ <div class="acard" onclick="showToast('前往 LinkedIn 閱讀')">
+ <div class="acard-meta"><div style="display:flex;align-items:center;gap:6px"><div class="plat-icon pi-li">in</div><div><div class="acard-author">陳映廷（案例） on LinkedIn</div><div class="acard-date">2025年2月3日</div></div></div><span class="tag to" style="margin-left:auto">高互動</span></div>
+ <div class="acard-ttl">歷史系如何讓我在微軟活得比工程師更好？</div>
+ <div class="acard-exc">很多人覺得文科進科技公司是「委屈求全」，但我的經驗恰恰相反。歷史訓練給了我一個工程師最缺乏的能力：長期視野與脈絡梳理……</div>
+ <div class="acard-foot"><button class="btn btn-out btn-sm" onclick="event.stopPropagation();showToast('前往 LinkedIn')">在 LinkedIn 閱讀全文 ↗</button><div class="acard-stats"><span> 1,204</span><span> 87</span></div></div>
+ </div>
+ <div style="display:flex;align-items:center;gap:7px;margin:14px 0 10px"><div class="plat-icon pi-dc">D</div><span style="font-size:12px;font-weight:700;color:#565449">Dcard 職場板</span><span style="font-size:11px;color:var(--g4)">5 篇</span></div>
+ <div class="acard" onclick="showToast('前往 Dcard 閱讀')">
+ <div class="acard-meta"><div style="display:flex;align-items:center;gap:6px"><div class="plat-icon pi-dc">D</div><div><div class="acard-author">Li.Yujing on Dcard</div><div class="acard-date">2024年11月22日</div></div></div></div>
+ <div class="acard-ttl">【心得】文組進外商科技公司：面試前最重要的三件事</div>
+ <div class="acard-exc">剛接到幾個學弟妹私訊，問我當初怎麼準備進微軟的面試。這篇把我覺得最重要的三件事寫下來……</div>
+ <div class="acard-foot"><button class="btn btn-out btn-sm" onclick="event.stopPropagation();showToast('前往 Dcard')">在 Dcard 閱讀全文 ↗</button><div class="acard-stats"><span> 523</span><span> 141</span></div></div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="contact-overlay" id="cOverlay" onclick="closeCF(event)">
+ <div class="cform">
+ <div style="font-size:16px;font-weight:800;margin-bottom:4px">聯繫 <span id="cName"></span> Mentor</div>
+ <div style="font-size:12px;color:var(--g4);margin-bottom:18px">Mentor 通常在 2–3 個工作天內回覆</div>
+ <div class="form-row"><label class="form-lbl">諮詢主題</label><select class="form-inp"><option>職涯規劃與方向探索</option><option>履歷 / 作品集 Review</option><option>求職面試準備</option><option>研究所申請</option><option>產業資訊了解</option></select></div>
+ <div class="form-row"><label class="form-lbl">你的背景</label><input class="form-inp" type="text" placeholder="例：人類學系應屆，有兩次田野調查經驗"></div>
+ <div class="form-row"><label class="form-lbl">諮詢需求說明</label><textarea class="form-ta" placeholder="請描述你目前的困境或想請教的問題…"></textarea></div>
+ <div style="display:flex;gap:8px;margin-top:14px">
+ <button class="btn btn-ok" style="flex:1" onclick="sendCF()">送出聯繫請求</button>
+ <button class="btn btn-out" onclick="document.getElementById('cOverlay').classList.remove('show')">取消</button>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- ANXIETY -->
+<div class="pg" id="pg-anxiety">
+ <div style="background:#565449;border-radius:var(--r16);padding:36px;color:var(--wh);margin-bottom:18px;position:relative;overflow:hidden">
+ <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+ <h2 style="font-size:22px;font-weight:900;margin-bottom:8px">文組焦慮專區</h2>
+ <p style="font-size:13px;opacity:.85;line-height:1.7;max-width:500px">你的能力不是沒有用。是還沒找到被看見的語言。</p>
+ </div>
+ <div class="anxiety-grid">
+ <div class="azone nv">
+ <div style="font-size:28px;margin-bottom:8px"></div>
+ <div style="font-size:16px;font-weight:800;margin-bottom:5px">AI 焦慮專區</div>
+ <div style="margin-bottom:10px"><span class="tag tb">文科核心能力</span><span class="tag to">跨域路徑</span><span class="tag tp">非典型履歷</span></div>
+ <div style="font-size:12px;color:var(--g5);line-height:1.65;margin-bottom:14px">你說不清楚自己的能力？這裡幫你把它說清楚，然後告訴你：這個能力，有人需要。</div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">AI 賦能實踐工作坊</div><div class="rs2">臺北市數位發展處 · 3月開課 · 免費</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">ChatGPT × 職場應用課</div><div class="rs2">線上 · 免費 · 隨到隨學</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri">‍</span><div class="rinf"><div class="rt">AI 職涯諮詢 Mentor 媒合</div><div class="rs2">1對1 · 科技背景導師</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">提示詞工程入門</div><div class="rs2">台大開放課程 · 8週</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">AI 倫理與治理工作坊</div><div class="rs2">台灣人工智慧學校 · 假日班</div></div><span class="ra">›</span></div>
+ <button class="btn btn-out btn-blk btn-sm" style="margin-top:10px">查看全部 AI 資源 →</button>
+ </div>
+ <div class="azone pu">
+ <div style="font-size:28px;margin-bottom:8px"></div>
+ <div style="font-size:16px;font-weight:800;margin-bottom:5px">文組焦慮專區</div>
+ <div style="margin-bottom:10px"><span class="tag tp">文組跨域成功</span><span class="tag tb">非典型路徑</span><span class="tag to">真實故事</span></div>
+ <div style="font-size:12px;color:var(--g5);line-height:1.65;margin-bottom:14px">他們也曾經站在你現在的位置。人類學系、哲學系、社會學系，都走出了自己的路。</div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">文科跨域學習工作坊</div><div class="rs2">台北市政府 × 學術機構聯辦</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">政策分析 × 數位工具</div><div class="rs2">文科生資料分析入門 · 免費</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri">⭐</span><div class="rinf"><div class="rt">文科轉型成功案例講座</div><div class="rs2">歷史→PM / 法律→UX · 每月</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">文組跨域 Mentor 媒合</div><div class="rs2">找到懂你的前輩 · 免費</div></div><span class="ra">›</span></div>
+ <div class="rrow"><span class="ri"></span><div class="rinf"><div class="rt">文組競爭力評估報告</div><div class="rs2">量身分析跨域潛力</div></div><span class="ra">›</span></div>
+ <button class="btn btn-out btn-blk btn-sm" style="margin-top:10px">查看全部文組資源 →</button>
+ </div>
+ </div>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+ <div class="card"><div class="cbd" style="text-align:center"><div style="font-size:26px;font-weight:900;color:#2F3A55;font-family:'Noto Serif TC',serif">87%</div><div style="font-size:12px;color:var(--g4);margin-top:5px">完成資源配對後方向感提升</div></div></div>
+ <div class="card"><div class="cbd" style="text-align:center"><div style="font-size:26px;font-weight:900;color:#565449;font-family:'Noto Serif TC',serif">3 秒</div><div style="font-size:12px;color:var(--g4);margin-top:5px">標籤讓你快速做決定</div></div></div>
+ <div class="card"><div class="cbd" style="text-align:center"><div style="font-size:26px;font-weight:900;color:#3A5A40;font-family:'Noto Serif TC',serif">45+</div><div style="font-size:12px;color:var(--g4);margin-top:5px">文組跨域成功案例</div></div></div>
+ </div>
+</div>
+
+<!-- PATH -->
+<div class="pg" id="pg-path">
+ <div style="text-align:center;margin-bottom:26px">
+ <h2 style="font-size:24px;font-weight:900;margin-bottom:6px">職涯路徑預測</h2>
+ <p style="font-size:13px;color:var(--g5)">這不是唯一的答案。這是你現在的樣子，可以走的幾條路。每一條，都從你已經有的東西出發。</p>
+ </div>
+ <div class="card" style="margin-bottom:18px">
+ <div class="chd"><span class="cht">你目前的職涯軌跡</span></div>
+ <div class="cbd">
+ <div class="tl">
+ <div class="tn"><div class="td done">&#10003;</div><div class="tnl">大一<br>入學</div></div>
+ <div class="tline done"></div>
+ <div class="tn"><div class="td done">&#10003;</div><div class="tnl">大二<br>田野調查</div></div>
+ <div class="tline done"></div>
+ <div class="tn"><div class="td done">&#10003;</div><div class="tnl">大三<br>第二次田野</div></div>
+ <div class="tline done"></div>
+ <div class="tn"><div class="td now">今</div><div class="tnl">應屆<br>畢業</div></div>
+ <div class="tline"></div>
+ <div class="tn"><div class="td future">?</div><div class="tnl">畢業後<br>?</div></div>
+ <div class="tline"></div>
+ <div class="tn"><div class="td future">?</div><div class="tnl">3年後<br>?</div></div>
+ </div>
+ </div>
+ </div>
+ <div style="text-align:center;margin-bottom:12px"><div class="slbl">點選你最感興趣的未來路徑</div></div>
+ <div class="fgrid">
+ <div class="fcard" onclick="selF(this,0)"><div class="fc-ico" style="font-size:13px;font-weight:700;letter-spacing:.04em">—</div><div class="fc-ttl">使用者研究員 UX Researcher</div><span class="fc-prob">相符度 82%</span><div class="fc-desc">將深度訪談與行為觀察能力應用於產品設計流程</div></div>
+ <div class="fcard" onclick="selF(this,1)"><div class="fc-ico" style="font-size:13px;font-weight:700;letter-spacing:.04em">—</div><div class="fc-ttl">社會影響力專案經理</div><span class="fc-prob">相符度 74%</span><div class="fc-desc">以文化理解與質性分析推動社會議題專案</div></div>
+ <div class="fcard" onclick="selF(this,2)"><div class="fc-ico" style="font-size:13px;font-weight:700;letter-spacing:.04em">—</div><div class="fc-ttl">質化市場研究分析師</div><span class="fc-prob">相符度 63%</span><div class="fc-desc">將消費者行為洞察轉化為品牌與商業決策依據</div></div>
+ </div>
+ <div class="rm" id="rmPanel">
+ <div class="rm-ttl"><span id="rmIco"></span>邁向 <span id="rmGoal" style="color:#2F3A55;margin:0 4px"></span> 的行動地圖</div>
+ <div class="rstep"><div class="rnum s1">1</div><div style="flex:1;padding-top:3px"><div style="font-size:13px;font-weight:700;margin-bottom:3px" id="rs1t"></div><div style="font-size:12px;color:var(--g6);line-height:1.6" id="rs1d"></div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:7px" id="rs1g"></div></div></div>
+ <div class="rstep"><div class="rnum s2">2</div><div style="flex:1;padding-top:3px"><div style="font-size:13px;font-weight:700;margin-bottom:3px" id="rs2t"></div><div style="font-size:12px;color:var(--g6);line-height:1.6" id="rs2d"></div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:7px" id="rs2g"></div></div></div>
+ <div class="rstep"><div class="rnum s3">3</div><div style="flex:1;padding-top:3px"><div style="font-size:13px;font-weight:700;margin-bottom:3px" id="rs3t"></div><div style="font-size:12px;color:var(--g6);line-height:1.6" id="rs3d"></div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:7px" id="rs3g"></div></div></div>
+ <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--g1);display:flex;gap:8px">
+ <button class="btn btn-pr btn-sm" onclick="showToast('正在配對相關資源…')">開始配對相關資源</button>
+ <button class="btn btn-out btn-sm" onclick="showToast('已下載路徑地圖')"> 下載</button>
+ </div>
+ </div>
+ <div class="ph" id="pathPh"><div class="ico"></div><p>點選上方卡片，查看專屬行動地圖</p></div>
+</div>
+
+</div>
+
+<script>
+var CARDS=[
+  {e:'',bg:'#F4EFE6',ty:'職涯計畫',tb:'#565449',org:'臺北市政府青年局',name:'青年以戰代訓銜接職場計畫',desc:'結合業界實作與跨域職能培訓，幫助應屆畢業生將非典型能力轉化為職場硬實力，文組友善、免費參加。',date:'滾動開課，請見報名頁面',loc:'臺北市各合作場域',dur:'依梯次不同',match:'91%',mb:'#3A5A40',tags:[['tg','免費'],['tb','文組友善'],['to','應屆畢業生'],['tp','跨域職能'],['tt','業界實作']],host:'臺北市政府青年局',full:'青年以戰代訓銜接職場計畫，協助應屆畢業生於短期內透過業界實作累積跨域職能，特別適合非典型背景青年。課程設計文組友善，強調將質性思維、溝通與洞察能力轉化為具體職場技能。免費參加，採線上報名。',rsn:'你的田野調查與質性研究能力屬於「非典型」但高價值技能，此計畫的跨域培訓能幫你找到把這些能力說清楚的語言。',elig:'應屆或近屆畢業生，詳見各梯次公告',dl:'滾動開梯次，請見官網',fee:'免費',contact:'(02)2351-4078',url:'https://youth.gov.taipei/'},
+  {e:'',bg:'#EDE8DF',ty:'補助課程',tb:'#565449',org:'勞動力發展署',name:'產業人才投資方案 — 數位行銷實務班',desc:'補助課程，培養數位技能與內容產製能力，適合有工作經驗或確定轉往數位行銷方向的求職者。',date:'各梯次不同，請見勞動部官網',loc:'各訓練機構',dur:'依課程梯次',match:'64%',mb:'#6B5E3A',tags:[['am','補助課程'],['tb','數位技能'],['to','內容產製'],['tg','有工作經驗者優先']],host:'勞動力發展署',full:'產業人才投資方案數位行銷實務班，補助課程費用部分，培養學員數位行銷實務、內容策略與社群操作能力。以有工作經驗者為主要對象，部分費用需自付。',rsn:'此課程以有工作經驗者為優先，你目前為應屆畢業生，現階段可先累積實作經驗後再評估是否適合。',elig:'有工作經驗者優先，應屆畢業生需自行評估',dl:'依各梯次公告',fee:'部分補助，自費部分需自付',contact:'勞動部官網 wda.gov.tw',url:'https://wda.gov.tw/'},
+  {e:'',bg:'#F4EFE6',ty:'職涯諮詢',tb:'#565449',org:'臺北市政府青年局',name:'臺北青年職涯發展中心 (TYS)',desc:'提供職涯諮詢、履歷健檢、模擬面試等全方位職涯支援服務，週二至週日開放，適合方向空白型青年。',date:'週二至週日 09:00–18:00',loc:'臺北市中正區仁愛路1段17號 2樓',dur:'依預約',match:'88%',mb:'#3A5A40',tags:[['tg','免費'],['tb','職涯諮詢'],['tt','方向探索']],host:'臺北市政府青年局',full:'臺北青年職涯發展中心（TYS）提供個別化職涯諮詢，特別適合不知道自己能做什麼、或說不清楚自己能力的青年。諮詢師能協助你把非典型能力轉化為清晰的職涯方向。',rsn:'你面對的是「能力說不清楚、方向空白」的困境，TYS 的個別諮詢最能幫你把那些模糊但真實的能力說出來。',elig:'台北市青年，免預約或依公告預約',dl:'全年開放',fee:'免費',contact:'(02)2395-8567',url:'https://youth.gov.taipei/resources/7e6189d18bb50ab8d18b10deca5cc7a1b7449492'},
+  {e:'',bg:'#EDE8DF',ty:'實習補助',tb:'#565449',org:'臺北市政府青年局',name:'青年實習津貼計畫',desc:'提供台北市青年實習期間津貼補助，協助在探索期的青年透過實習嘗試不同職涯方向，無須擔心收入問題。',date:'全年受理，滾動審核',loc:'線上申請',dur:'依實習期間',match:'85%',mb:'#3A5A40',tags:[['tg','津貼補助'],['tb','探索期適用'],['to','官方計畫']],host:'臺北市政府青年局',full:'青年實習津貼計畫，為方向探索中的青年提供實習期間的收入補貼，讓你可以在沒有生活壓力的情況下嘗試不同產業與職位，找到最適合自己能力發揮的場域。',rsn:'你需要的是實際接觸不同工作場域的機會，此計畫可讓你在探索期間維持基本收入，安心嘗試。',elig:'設籍或就讀台北市青年，詳見公告',dl:'滾動受理',fee:'依計畫核給津貼',contact:'(02)2351-4078',url:'https://youth.gov.taipei/services/05eb79e5-46b5-41e5-b1fd-0519d782b04a/a41148e3-d08f-4f76-8b84-ea4f3ffcb258'},
+  {e:'',bg:'#F0E9D8',ty:'進修補助',tb:'#565449',org:'臺北市政府青年局',name:'青年職涯進修補助計畫',desc:'補助台北市青年參加職涯相關課程、考取專業證照，適合想強化跨域技能的青年。',date:'全年受理，每季審核',loc:'郵寄 / 臺北青年職涯發展中心臨櫃',dur:'依課程期間',match:'80%',mb:'#6B5E3A',tags:[['am','進修補助'],['tb','跨域技能'],['to','官方計畫']],host:'臺北市政府青年局',full:'補助台北市青年參加職涯相關課程或考取專業證照，包含 UX 研究、設計思考、質性研究應用等跨域課程。',rsn:'你想強化 UX 研究或市調相關技能，此補助計畫可大幅降低進修費用負擔。',elig:'台北市青年，詳見計畫內容',dl:'滾動受理',fee:'免費申請，依計畫核給補助',contact:'(02)2395-8567',url:'https://youth.gov.taipei/services/05eb79e5-46b5-41e5-b1fd-0519d782b04a/0b17cb64-05d5-4d46-9981-d99dd9c77d36'},
+  {e:'',bg:'#EDE8DF',ty:'工作坊',tb:'#565449',org:'臺北市政府青年局',name:'青年學堂 — 溝通力進化系列課程',desc:'提升人際溝通、表達與衝突處理能力，幫助善於觀察他人的你，把內在洞察轉化為清晰的對外表達。',date:'滾動開課，請見報名頁面',loc:'臺北市中正區仁愛路1段17號 9樓',dur:'各場次不同',match:'78%',mb:'#3A5A40',tags:[['tg','免費'],['tb','溝通技能'],['tt','表達能力']],host:'臺北市政府青年局',full:'青年學堂溝通力進化系列課程，透過實作與演練幫助青年提升職場溝通能力。對於細膩敏感、善於觀察的人來說，這門課能幫你把內在的感受與洞察，轉化為他人能理解的語言。',rsn:'你善於理解他人，但難以把自己的能力說清楚——這門課可以幫你找到表達自己的語言。',elig:'台北市青年',dl:'各梯次不同，請見報名頁',fee:'免費',contact:'(02)2351-4078',url:'https://www.class.tcyd.gov.taipei/participate/?mode=detail&node=445'},
+  {e:'',bg:'#F4EFE6',ty:'課程',tb:'#565449',org:'臺北市政府青年局',name:'青年學堂 — 社會創新探索課程',desc:'了解社會影響力專案的運作方式，連結社企實習機會，適合想用人文背景推動社會改變的青年。',date:'滾動開課，請見報名頁面',loc:'臺北市中正區仁愛路17號 9樓',dur:'各場次不同',match:'75%',mb:'#6B5E3A',tags:[['to','社會創新'],['tb','文組友善'],['tg','免費']],host:'臺北市政府青年局',full:'青年學堂社會創新探索課程，帶領青年認識社會影響力專案的設計與執行，並連結社企實習機會。適合有人文關懷、想把文科能力應用於社會議題的青年。',rsn:'路徑二「社會影響力專案經理」需要文化理解與質性分析能力，你已具備，此課程能幫你了解如何進入這個領域。',elig:'台北市青年',dl:'各梯次不同，請見報名頁',fee:'免費',contact:'(02)2351-4078',url:'https://www.class.tcyd.gov.taipei/participate/?mode=detail&node=415'},
+  {e:'',bg:'#EDE8DF',ty:'實習平台',tb:'#565449',org:'臺北市政府青年局 x 104',name:'臺北市政府青年實習平台',desc:'媒合台北市各政府機關實習職缺，適合想透過公部門實習累積政策研究或質性分析實務經驗的青年。',date:'全年刊登，依職缺更新',loc:'線上媒合 / 各政府機關',dur:'依職缺不同',match:'72%',mb:'#3A5A40',tags:[['tb','政府實習'],['tg','104平台'],['to','質性研究適用']],host:'臺北市政府青年局 x 104人力銀行',full:'臺北市政府青年實習平台整合各政府機關實習職缺，部分職位需要社會調查、訪談、報告撰寫等質性研究技能，與人類學背景高度吻合。',rsn:'人類學的田野調查與訪談能力，在政策研究類職缺中是實際優勢，此平台是找到對應機會的最快管道。',elig:'各職缺資格不同，詳見平台刊登內容',dl:'依職缺截止日',fee:'免費使用平台',contact:'(02)2351-4078',url:'https://tpyd.104.com.tw/'},
+  {e:'',bg:'#F4EFE6',ty:'課程',tb:'#565449',org:'臺北市政府青年局',name:'青年學堂 — 自媒體系列課程',desc:'學習個人品牌建立與內容創作，幫助你把人類學視角轉化為有影響力的內容，讓能力被看見。',date:'滾動開課，請見報名頁面',loc:'臺北市中正區仁愛路17號',dur:'各場次不同',match:'68%',mb:'#6B5E3A',tags:[['tp','個人品牌'],['tb','內容創作'],['tg','免費']],host:'臺北市政府青年局',full:'青年學堂自媒體系列課程，協助青年透過個人品牌定位與內容創作建立職涯能見度。對於說不清楚自己能力的你，這門課能幫你找到讓能力被看見的語言與媒介。',rsn:'你的困境是「能力說不清楚」，建立個人品牌是讓雇主看見你非典型能力的有效方式。',elig:'台北市青年',dl:'各梯次不同，請見報名頁',fee:'免費',contact:'(02)2351-4078',url:'https://www.class.tcyd.gov.taipei/participate/?mode=detail&node=370'},
+  {e:'',bg:'#EDE8DF',ty:'補助',tb:'#565449',org:'臺北市政府青年局',name:'協助青年多元發展補助',desc:'補助台北市青年參與各類多元發展活動，鼓勵拓展視野、累積非典型但有價值的多元經驗。',date:'全年受理',loc:'線上申請',dur:'依活動期間',match:'71%',mb:'#6B5E3A',tags:[['am','多元補助'],['tb','非典型經驗'],['tg','免費申請']],host:'臺北市政府青年局',full:'協助青年多元發展補助，鼓勵青年參與各類多元發展活動，包含田野工作、文化交流、社會議題探索等，補助金額依活動性質核定。',rsn:'你的田野調查、跨文化理解等非典型經驗，可透過此補助計畫支持繼續累積與深化。',elig:'台北市青年，詳見各次公告',dl:'滾動受理',fee:'免費申請，依計畫核給補助',contact:'(02)2351-4078',url:'https://youth.gov.taipei/services/05eb79e5-46b5-41e5-b1fd-0519d782b04a/b9acf730-1474-4b86-9d72-41a235d63314'},
+  {e:'',bg:'#F4EFE6',ty:'課程',tb:'#565449',org:'臺北市政府青年局',name:'青年學堂 — 情緒覺察及紓壓系列課程',desc:'協助細膩敏感的青年建立心理韌性，面對職涯不確定性時不被焦慮淹沒，把感受力轉化為行動力。',date:'滾動開課，請見報名頁面',loc:'臺北市中正區仁愛路17號',dur:'各場次不同',match:'82%',mb:'#6B5E3A',tags:[['tg','心理健康'],['tb','焦慮調節'],['tt','免費']],host:'臺北市政府青年局',full:'青年學堂情緒覺察及紓壓系列課程，幫助青年在職涯不確定性中建立健康的情緒管理機制。特別適合細膩感受力強、容易被不確定性淹沒的青年。',rsn:'你的細膩感受力是珍貴的能力，但也讓你比別人更早感到惶恐。這門課能幫你把這份感受力轉化為行動力。',elig:'台北市青年',dl:'各梯次不同，請見報名頁',fee:'免費',contact:'(02)2351-4078',url:'https://www.class.tcyd.gov.taipei/participate/?mode=detail&node=368'},
+  {e:'',bg:'#EDE8DF',ty:'資源總覽',tb:'#565449',org:'臺北市政府青年局',name:'青年資源總覽',desc:'一站式瀏覽台北市青年局所有職涯資源，不知道從哪裡開始的你，從這裡找到第一個起點。',date:'全年開放',loc:'線上',dur:'依各資源',match:'76%',mb:'#3A5A40',tags:[['tb','官方總覽'],['tg','一站式'],['to','起點資源']],host:'臺北市政府青年局',full:'台北市政府青年局官方資源頁面，彙整所有職涯相關計畫。不知道從哪裡開始沒關係，這裡是找到屬於你的第一步的最佳起點。',rsn:'你需要的不是更多資訊，而是找到對的起點。這個頁面能讓你快速了解有哪些資源適合你現在的狀態。',elig:'台北市青年',dl:'全年開放',fee:'免費',contact:'(02)2351-4078',url:'https://youth.gov.taipei/resources'}
+];
+
+var RMAPS=[
+  {icon:'',goal:'使用者研究員 UX Researcher',s:[
+    {t:'現在（0–6個月）：累積 UX 實作入門',d:'參加青年以戰代訓職場計畫，接觸 UX 研究實作；聯繫質性研究背景的 Mentor（如 UX 研究員），了解田野調查能力如何在產品設計中被應用。',tags:[['tb','青年以戰代訓'],['to','聯繫UX Mentor'],['tg','質性研究應用']]},
+    {t:'短期（6–18個月）：建立作品集與實習經驗',d:'尋找 UX 研究實習職缺，將過去田野訪談整理成可展示的洞察報告；申請青年實習津貼計畫補貼收入。',tags:[['tp','UX 研究實習'],['tt','實習津貼計畫'],['tb','作品集建立']]},
+    {t:'中期（1.5–3年）：確立 UX 研究專業定位',d:'考取或修習 UX 相關課程認證，強化資料呈現與可用性測試技能，進入正職 UX 研究員職涯。',tags:[['to','UX 課程認證'],['tb','可用性測試'],['tp','進修補助申請']]}
+  ]},
+  {icon:'',goal:'社會影響力專案經理',s:[
+    {t:'現在（0–6個月）：接觸社企與議題組織',d:'參加青年學堂社會創新課程，了解社會影響力專案設計；透過 NPO/社企實習機會接觸第一線運作。',tags:[['tb','社會創新課程'],['to','社企實習'],['tg','議題組織接觸']]},
+    {t:'短期（6–18個月）：參與實際專案',d:'加入社會影響力相關組織或計畫，以文化理解與質性分析能力協助專案研究與倡議；申請多元發展補助支持田野工作。',tags:[['tp','專案參與'],['tt','多元發展補助'],['tb','倡議與研究']]},
+    {t:'中期（1.5–3年）：建立跨域專案管理能力',d:'強化專案管理與資源媒合技能，考慮申請社企育成計畫或影響力投資媒合，發展自己的倡議專案。',tags:[['to','社企育成計畫'],['tb','專案管理'],['tp','影響力投資']]}
+  ]},
+  {icon:'',goal:'質化市場研究分析師',s:[
+    {t:'現在（0–6個月）：了解市調產業與技能需求',d:'接觸市調公司實習機會，了解消費者洞察如何轉化為品牌決策；強化質性訪談的架構化能力。',tags:[['tb','市調公司實習'],['to','消費者洞察'],['tg','訪談架構化']]},
+    {t:'短期（6–18個月）：強化資料呈現與分析技能',d:'學習數據呈現工具（如 Tableau、Excel 樞紐分析），將質性洞察與量化資料結合，提升對雇主的說服力；申請進修補助支持學習。',tags:[['tp','資料視覺化'],['tt','進修補助'],['tb','量化技能強化']]},
+    {t:'中期（1.5–3年）：建立市調研究職涯',d:'進入市調或消費者洞察相關正職，發展品牌與商業決策的顧問能力，建立跨產業的研究影響力。',tags:[['to','市調正職'],['tb','品牌策略顧問'],['tp','跨產業研究']]}
+  ]}
+];
+
+var idx=0,dragX=0,startX=0,isDrag=false,likeCount=0,favItems=[];
+
+function renderTop(){
+ var c=CARDS[idx%CARDS.length];
+ document.getElementById('cImg').style.background=c.bg;
+ document.getElementById('cEmoji').textContent=c.ty;
+ var ct=document.getElementById('cType');ct.textContent=c.ty;ct.style.background=c.tb;
+ var cm=document.getElementById('cMatch');cm.textContent=c.match+' 配對';cm.style.background=c.mb;
+ document.getElementById('cOrg').textContent=c.org;
+ document.getElementById('cName').textContent=c.name;
+ document.getElementById('cDesc').textContent=c.desc;
+ document.getElementById('cMeta').innerHTML='<span> '+c.date+'</span><span> '+c.loc+'</span><span>⏱ '+c.dur+'</span>';
+ var tg=document.getElementById('cTags');tg.innerHTML='';
+ c.tags.forEach(function(t){var s=document.createElement('span');s.className='tag '+t[0];s.textContent=t[1];tg.appendChild(s);});
+ var sc=document.getElementById('sc1');sc.style.transform='';sc.style.opacity='';
+ document.getElementById('liInd').style.opacity='0';document.getElementById('noInd').style.opacity='0';
+}
+function renderBacks(){
+ var n=CARDS[(idx+1)%CARDS.length],n2=CARDS[(idx+2)%CARDS.length];
+ document.getElementById('sc2').innerHTML='<div style="height:195px;background:'+n.bg+';display:flex;align-items:center;justify-content:center"><span style="font-size:13px;font-weight:700;color:#565449;text-transform:uppercase;letter-spacing:.06em">'+n.ty+'</span></div><div style="padding:16px 20px"><div style="font-size:10px;color:#8A8577;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">'+n.org+'</div><div style="font-size:16px;font-weight:800;line-height:1.3;color:#11120D">'+n.name+'</div></div>';
+ document.getElementById('sc3').innerHTML='<div style="height:195px;background:'+n2.bg+';display:flex;align-items:center;justify-content:center"><span style="font-size:13px;font-weight:700;color:#565449;text-transform:uppercase;letter-spacing:.06em">'+n2.ty+'</span></div><div style="padding:16px 20px"><div style="font-size:15px;font-weight:700;color:#11120D">'+n2.name+'</div></div>';
+}
+function updateProgress(){
+ var total=CARDS.length,pos=(idx%total)+1,pct=Math.round((idx%total)/total*100);
+ document.getElementById('pFill').style.width=pct+'%';
+ document.getElementById('pLbl').textContent='第 '+pos+' 張，共 '+total+' 張';
+ document.getElementById('leftC').textContent=total-(idx%total);
+}
+function loadAll(){renderTop();renderBacks();updateProgress();}
+loadAll();
+
+function swR(){
+ var c=CARDS[idx%CARDS.length],sc=document.getElementById('sc1');
+ sc.style.transition='transform .36s ease,opacity .36s';
+ sc.style.transform='translateX(130%) rotate(18deg)';sc.style.opacity='0';
+ likeCount++;document.getElementById('likeC').textContent=likeCount;
+ document.getElementById('p-matched').textContent=likeCount;
+ favItems.unshift(c);updateFav();showToast(' 已加入最愛！');
+ setTimeout(function(){idx++;sc.style.transition='';loadAll();},370);
+}
+function swL(){
+ var sc=document.getElementById('sc1');
+ sc.style.transition='transform .36s ease,opacity .36s';
+ sc.style.transform='translateX(-130%) rotate(-18deg)';sc.style.opacity='0';
+ showToast('繼續尋找更適合你的資源…');
+ setTimeout(function(){idx++;sc.style.transition='';loadAll();},370);
+}
+function updateFav(){
+ document.getElementById('p-fav').textContent=favItems.length;
+ var fl=document.getElementById('favList');fl.innerHTML='';
+ var pfl=document.getElementById('profileFavList');pfl.innerHTML='';
+ if(favItems.length===0){fl.innerHTML='<span style="font-size:12px;color:#94A3B8">右滑後出現在這裡</span>';pfl.innerHTML='<span style="font-size:13px;color:#94A3B8">右滑資源後會出現在這裡</span>';return;}
+ favItems.slice(0,4).forEach(function(c){
+ var d=document.createElement('div');d.className='litem';
+ d.innerHTML='<div class="lic" style="background:#F1F5F9;font-size:16px">'+c.e+'</div><div class="linf"><div class="lt2">'+c.name.slice(0,20)+(c.name.length>20?'…':'')+'</div><div class="ls2">'+c.org+'</div></div><span class="tag tg" style="font-size:10px">'+c.match+'</span>';
+ fl.appendChild(d);var d2=d.cloneNode(true);pfl.appendChild(d2);
+ });
+}
+function dStart(e){isDrag=true;startX=e.clientX;dragX=0;document.addEventListener('mousemove',onDrag);document.addEventListener('mouseup',endDrag);}
+function dStartT(e){isDrag=true;startX=e.touches[0].clientX;dragX=0;document.addEventListener('touchmove',onDragT,{passive:false});document.addEventListener('touchend',endDragT);}
+function onDrag(e){if(!isDrag)return;dragX=e.clientX-startX;applyDrag();}
+function onDragT(e){e.preventDefault();dragX=e.touches[0].clientX-startX;applyDrag();}
+function applyDrag(){
+ var sc=document.getElementById('sc1');sc.style.transform='translateX('+dragX+'px) rotate('+(dragX*.07)+'deg)';
+ var r=Math.min(Math.abs(dragX)/90,1);
+ document.getElementById('liInd').style.opacity=dragX>20?r:'0';
+ document.getElementById('noInd').style.opacity=dragX<-20?r:'0';
+}
+function endDrag(){document.removeEventListener('mousemove',onDrag);document.removeEventListener('mouseup',endDrag);isDrag=false;if(dragX>80)swR();else if(dragX<-80)swL();else snap();}
+function endDragT(){document.removeEventListener('touchmove',onDragT);document.removeEventListener('touchend',endDragT);isDrag=false;if(dragX>80)swR();else if(dragX<-80)swL();else snap();}
+function snap(){var sc=document.getElementById('sc1');sc.style.transition='transform .28s ease';sc.style.transform='';document.getElementById('liInd').style.opacity='0';document.getElementById('noInd').style.opacity='0';setTimeout(function(){sc.style.transition='';},280);}
+function openM(){
+ var c=CARDS[idx%CARDS.length];
+ document.getElementById('mImg').style.background=c.bg;document.getElementById('mEmoji').textContent=c.ty;
+ document.getElementById('mOrg').textContent=c.org;document.getElementById('mTtl').textContent=c.name;
+ var tg=document.getElementById('mTgs');tg.innerHTML='';
+ c.tags.forEach(function(t){var s=document.createElement('span');s.className='tag '+t[0];s.textContent=t[1];tg.appendChild(s);});
+ document.getElementById('mHost').textContent=c.host;document.getElementById('mDesc').textContent=c.full;
+ document.getElementById('mRsn').textContent=c.rsn;document.getElementById('mElig').textContent=c.elig;
+ document.getElementById('mPct').textContent=c.match;document.getElementById('mDl').textContent=c.dl;
+ document.getElementById('mFee').textContent=c.fee;document.getElementById('mContact').textContent=c.contact;
+ document.getElementById('mBg').classList.add('show');
+ var _ub=document.getElementById('mUrlBtn');if(_ub){_ub.href=c.url||'https://youth.gov.taipei/resources';}
+}
+function closeMBg(e){if(!e||e.target===document.getElementById('mBg'))document.getElementById('mBg').classList.remove('show');}
+function favFromM(){closeMBg();swR();}
+function openMentorProfile(type){
+ document.getElementById('mentorListView').style.display='none';
+ document.getElementById('mentorSubNav').style.display='none';
+ document.getElementById('mentorProfileRes').style.display=type==='resident'?'block':'none';
+ document.getElementById('mentorProfileExt').style.display=type==='external'?'block':'none';
+}
+function closeProfile(){
+ document.getElementById('mentorListView').style.display='flex';
+ document.getElementById('mentorSubNav').style.display='flex';
+ document.getElementById('mentorProfileRes').style.display='none';
+ document.getElementById('mentorProfileExt').style.display='none';
+}
+function openContactForm(name){document.getElementById('cName').textContent=name;document.getElementById('cOverlay').classList.add('show');}
+function closeCF(e){if(!e||e.target===document.getElementById('cOverlay'))document.getElementById('cOverlay').classList.remove('show');}
+function sendCF(){document.getElementById('cOverlay').classList.remove('show');showToast(' 聯繫請求已送出！Mentor 將在 2–3 個工作天內回覆。');}
+function filterM(type,btn){document.querySelectorAll('.mttab').forEach(function(t){t.classList.remove('on')});btn.classList.add('on');showToast(type==='all'?'顯示全部 Mentor':type==='resident'?'篩選：進駐平台 Mentor':'篩選：外部平台 Mentor');}
+function selF(el,i){
+ document.querySelectorAll('.fcard').forEach(function(c){c.classList.remove('sel')});el.classList.add('sel');
+ var r=RMAPS[i];
+ document.getElementById('rmIco').textContent=r.icon;document.getElementById('rmGoal').textContent=r.goal;
+ ['1','2','3'].forEach(function(n,j){
+ document.getElementById('rs'+n+'t').textContent=r.s[j].t;
+ document.getElementById('rs'+n+'d').textContent=r.s[j].d;
+ var tg=document.getElementById('rs'+n+'g');tg.innerHTML='';
+ r.s[j].tags.forEach(function(t){var s=document.createElement('span');s.className='tag '+t[0];s.style.fontSize='11px';s.textContent=t[1];tg.appendChild(s);});
+ });
+ document.getElementById('rmPanel').classList.add('show');document.getElementById('pathPh').style.display='none';
+}
+function goPg(id,btn){
+ document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
+ document.querySelectorAll('.ntab').forEach(function(t){t.classList.remove('on')});
+ document.getElementById('pg-'+id).classList.add('on');btn.classList.add('on');
+ if(id!=='mentor'){closeProfile();}
+}
+function showToast(msg){
+ var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+ setTimeout(function(){t.classList.remove('show');},2400);
+}
+</script>
+</body>
+</html>
